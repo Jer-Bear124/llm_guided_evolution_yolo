@@ -1,0 +1,56 @@
+---------------------------------------
+Begin Slurm Prolog: Mar-03-2025 06:37:19
+Job ID:    1494905
+User ID:   yzhang3942
+Account:   coc
+Job name:  evaluateGene
+Partition: ice-gpu
+QOS:       coe-ice
+---------------------------------------
+Launching AIsurBL
+atl1-1-03-007-35-0.pace.gatech.edu
+Lmod has detected the following error: The following module(s) are unknown:
+"gcc/13.2.0"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "gcc/13.2.0"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+
+The following have been reloaded with a version change:
+  1) cuda/12.6.1 => cuda/12.1.1
+
+/var/lib/slurm/slurmd/job1494905/slurm_script: line 17: /opt/apps/Module/anaconda3/2021.11/bin/activate: No such file or directory
+Traceback (most recent call last):
+  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/./sota/ultralytics/test.py", line 164, in <module>
+    main()
+  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/./sota/ultralytics/test.py", line 130, in main
+    model = YOLO(args.network)
+  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/sota/ultralytics/ultralytics/models/yolo/model.py", line 23, in __init__
+    super().__init__(model=model, task=task, verbose=verbose)
+  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/sota/ultralytics/ultralytics/engine/model.py", line 143, in __init__
+    self._new(model, task=task, verbose=verbose)
+  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/sota/ultralytics/ultralytics/engine/model.py", line 251, in _new
+    self.model = (model or self._smart_load("model"))(cfg_dict, verbose=verbose and RANK == -1)  # build model
+  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/sota/ultralytics/ultralytics/nn/tasks.py", line 319, in __init__
+    self.model, self.save = parse_model(deepcopy(self.yaml), ch=ch, verbose=verbose)  # model, savelist
+  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/sota/ultralytics/ultralytics/nn/tasks.py", line 960, in parse_model
+    m = getattr(torch.nn, m[3:]) if "nn." in m else globals()[m]  # get module
+KeyError: 'ResBlock'
+---------------------------------------
+Begin Slurm Epilog: Mar-03-2025 06:37:42
+Job ID:        1494905
+User ID:       yzhang3942
+Account:       coc
+Job name:      evaluateGene
+Resources:     cpu=4,gres/gpu:a100=2,mem=128G,node=1
+Rsrc Used:     cput=00:01:32,vmem=0,walltime=00:00:23,mem=280420K,energy_used=0
+Partition:     ice-gpu
+QOS:           coe-ice
+Nodes:         atl1-1-03-007-35-0
+---------------------------------------

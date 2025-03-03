@@ -2,9 +2,11 @@ import os
 import numpy as np
 
 FILE_TYPE = 'yaml'
-ROOT_DIR = "/home/yyu448/yimingyu/code/llm-guided-evolution"
+ROOT_DIR = "/storage/ice1/0/2/yzhang3942/llm-guided-evolution"
 # DATA_PATH absolute or relative to ExquisiteNetV2
-DATA_PATH = "/home/yyu448/yimingyu/code/llm-guided-evolution/cifar10"
+DATA_PATH = "https://github.com/jasonzutty/ultralytics.git"
+#DATA_PATH = "https://github.com/ultralytics/ultralytics.git"
+#DATA_PATH = "/home/yyu448/yimingyu/code/llm-guided-evolution/cifar10"
 # SOTA_ROOT = os.path.join(ROOT_DIR, 'sota/chip_classifier')
 # SEED_NETWORK = os.path.join(SOTA_ROOT, 'network.py')
 SOTA_ROOT = os.path.join(ROOT_DIR, 'sota/ultralytics')
@@ -25,8 +27,9 @@ if MACOS:
 else:
 	DEVICE = 'cuda'
 	# DEVICE = 'cpu'
-LLM_MODEL = 'mixtral'
+#LLM_MODEL = 'mixtral'
 #LLM_MODEL = 'llama3'
+LLM_MODEL = 'qwen2.5_7B'
 # SEED_PACKAGE_DIR = "./sota/ExquisiteNetV2/divine_seed_module"
 
 """
@@ -56,17 +59,21 @@ hof_size = 100
 Job Sub Constants/Params
 """
 QC_CHECK_BOOL = False
-HUGGING_FACE_BOOL = True
+#HUGGING_FACE_BOOL = True
+HUGGING_FACE_BOOL = False
 #LLM_GPU = 'NVIDIAA100-SXM4-80GB|NVIDIAA10080GBPCIe|TeslaV100-PCIE-32GB|QuadroRTX4000|GeForceGTX1080Ti|GeForceGTX1080|TeslaV100-PCIE-32GB|TeslaV100S-PCIE-32GB'
-LLM_GPU = 'TeslaV100-PCIE-32GB|TeslaV100S-PCIE-32GB|NVIDIARTX6000AdaGeneration|NVIDIARTXA6000|NVIDIARTXA5000|NVIDIARTXA4000|GeForceGTX1080Ti|QuadroRTX4000|QuadroP4000|GeForceGTX1080|TeslaP4'
-PYTHON_BASH_SCRIPT_TEMPLATE = """#!/bin/bash
-#SBATCH --job-name=evaluateGene
-#SBATCH -t 8-00:00
-#SBATCH --gres=gpu:1
-#SBATCH -G 1
+#LLM_GPU = 'A100-40GB|A100-80GB|H100|V100-16GB|V100-32GB|RTX6000|A40|L40S'
 #SBATCH -C "TeslaV100-PCIE-32GB|TeslaV100S-PCIE-32GB|NVIDIARTX6000AdaGeneration|NVIDIARTXA6000|NVIDIARTXA5000|NVIDIARTXA4000|GeForceGTX1080Ti"
 #SBATCH --mem 60G
-#SBATCH -c 12
+LLM_GPU = 'A100-40GB|A100-80GB|H100'
+PYTHON_BASH_SCRIPT_TEMPLATE = """#!/bin/bash
+#SBATCH --job-name=evaluateGene
+#SBATCH -t 8:00:00
+#SBATCH --gres=gpu:2
+#SBATCH -G 2
+#SBATCH -C "A100-40GB|A100-80GB|H100"
+#SBATCH --mem 128G
+#SBATCH -c 4
 echo "Launching AIsurBL"
 hostname
 
@@ -85,14 +92,24 @@ source /opt/apps/Module/anaconda3/2021.11/bin/activate huggingface_env
 {}
 """
 
-LLM_BASH_SCRIPT_TEMPLATE = """#!/bin/bash
+"""
 #SBATCH --job-name=llm_oper
-#SBATCH -t 8-00:00
+#SBATCH -t 8:00:00
 #SBATCH --gres=gpu:1
 #SBATCH -G 1
 #SBATCH -C "{}"
 #SBATCH --mem 32G
 #SBATCH -c 12
+"""
+
+LLM_BASH_SCRIPT_TEMPLATE = """#!/bin/bash
+#SBATCH --job-name=llm_oper
+#SBATCH -t 8:00:00
+#SBATCH --gres=gpu:2
+#SBATCH -G 2
+#SBATCH -C "{}"
+#SBATCH --mem 128G
+#SBATCH -c 4
 echo "Launching AIsurBL"
 hostname
 

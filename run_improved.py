@@ -102,7 +102,8 @@ Main Job Functions
 def write_bash_script(input_filename_x=f'{SOTA_ROOT}/network.py',
                       input_filename_y=None,
                       output_filename=f'{SOTA_ROOT}/models/network_x.py',
-                      gpu='TeslaV100-PCIE-32GB',
+                      gpu='A100-80GB',
+                      #gpu='A100-40GB|A100-80GB|H100|V100-16GB|V100-32GB',
                       python_file='src/llm_mutation.py', 
                       top_p=0.1, temperature=0.2,
                      
@@ -941,7 +942,7 @@ if __name__ == "__main__":
         save_checkpoint(gen, folder_name=args.checkpoints)
         LINKED_GENES = {}
         # mutate x prompts
-        mutate_prompts()
+        #mutate_prompts()
         
     print("-- End of Evolution --")
     best_ind = tools.selBest(population, 1)[0]
