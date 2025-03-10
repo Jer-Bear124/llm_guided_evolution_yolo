@@ -1,7 +1,7 @@
 task: detect
 mode: train
-model: yolo11n.pt
-data: coco128.yaml
+model: network_xXxc06ti61DDCfJrLapcYHk7quy.yaml
+data: /storage/ice1/0/2/yzhang3942/llm-guided-evolution/sota/ultralytics/coco.yaml
 epochs: 100
 time: null
 patience: 100
@@ -10,7 +10,7 @@ imgsz: 640
 save: true
 save_period: -1
 cache: false
-device: null
+device: cuda
 workers: 8
 project: null
 name: train
@@ -104,4 +104,4 @@ erasing: 0.4
 crop_fraction: 1.0
 cfg: null
 tracker: botsort.yaml
-save_dir: runs/detect/train
+save_dir: /storage/ice1/0/2/yzhang3942/llm-guided-evolution/runs/detect/train

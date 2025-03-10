@@ -5,7 +5,7 @@
 #SBATCH -c 4                          # number of CPU cores
 #SBATCH -G 2
 #SBATCH --gres=gpu:2
-#SBATCH -C "A100-40GB|A100-80GB|H100"
+#SBATCH -C "A100-40GB|A100-80GB|H100|H200"
 echo "launching LLM Guided Evolution YOLO"
 hostname
 # module load anaconda3/2020.07 2021.11

@@ -1,106 +1,0 @@
----------------------------------------
-Begin Slurm Prolog: Mar-03-2025 05:12:39
-Job ID:    1493896
-User ID:   yzhang3942
-Account:   coc
-Job name:  llm_oper
-Partition: ice-gpu
-QOS:       coe-ice
----------------------------------------
-Launching AIsurBL
-atl1-1-01-005-15-0.pace.gatech.edu
-Lmod has detected the following error: The following module(s) are unknown:
-"gcc/13.2.0"
-
-Please check the spelling or version number. Also try "module spider ..."
-It is also possible your cache file is out-of-date; it may help to try:
-  $ module --ignore_cache load "gcc/13.2.0"
-
-Also make sure that all modulefiles written in TCL start with the string
-#%Module
-
-
-
-
-The following have been reloaded with a version change:
-  1) cuda/12.6.1 => cuda/12.1.1
-
-/var/lib/slurm/slurmd/job1493896/slurm_script: line 17: /opt/apps/Module/anaconda3/2021.11/bin/activate: No such file or directory
-Loading /storage/ice1/0/2/yzhang3942/llm-guided-evolution/sota/ultralytics/ultralytics/cfg/models/v3/network.yaml code
-
-************************************************************
-*                      PROMPT TO LLM                       *
-************************************************************
-2025-03-03 05:12:56.051640: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
-WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-E0000 00:00:1740996776.069311 2841769 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
-E0000 00:00:1740996776.074973 2841769 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
-2025-03-03 05:12:56.092626: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
-To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
-As a leading authority in machine learning, you possess a profound grasp of sophisticated artificial intelligence methodologies, a skill set that has directed you to your most recent endeavor:
-
-Q: How can you develop a new variant of this YAML configuration, incorporating your unique and uncommon modifications to default parameters or hyperparameters to potentially enhance its performance?
-
-The current YAML configuration:
-```python
-# Parameters
-nc: 80 # number of classes
-depth_multiple: 1.0 # model depth multiple
-width_multiple: 1.0 # layer channel multiple 
-```
-1. Modify the Parameters, Backbone or the Head of YOLO detection model defined in Ultralytics YOLO.
-2. Retrain the same YAML format.
-3. Exclude setup/demonstration.
-4. Retain original tensor input/output sizes.
-5. Resulting YAML Configurations should have all the parts of Parameters, YOLO Backbone, and the YOLO Head.
-6. Must function with default settings.
-
-A: Let us think step by step
-max_new_tokens: 888
-Loading checkpoint shards:   0%|          | 0/19 [00:00<?, ?it/s]Loading checkpoint shards:   5%|▌         | 1/19 [00:00<00:13,  1.37it/s]Loading checkpoint shards:  11%|█         | 2/19 [00:01<00:13,  1.28it/s]Loading checkpoint shards:  16%|█▌        | 3/19 [00:02<00:12,  1.25it/s]Loading checkpoint shards:  21%|██        | 4/19 [00:03<00:12,  1.25it/s]Loading checkpoint shards:  26%|██▋       | 5/19 [00:03<00:11,  1.24it/s]Loading checkpoint shards:  32%|███▏      | 6/19 [00:04<00:10,  1.23it/s]Loading checkpoint shards:  37%|███▋      | 7/19 [00:05<00:09,  1.23it/s]Loading checkpoint shards:  42%|████▏     | 8/19 [00:06<00:08,  1.23it/s]Loading checkpoint shards:  47%|████▋     | 9/19 [00:07<00:08,  1.22it/s]Loading checkpoint shards:  53%|█████▎    | 10/19 [00:08<00:07,  1.23it/s]Loading checkpoint shards:  58%|█████▊    | 11/19 [00:08<00:06,  1.23it/s]Loading checkpoint shards:  63%|██████▎   | 12/19 [00:09<00:05,  1.24it/s]Loading checkpoint shards:  68%|██████▊   | 13/19 [00:10<00:04,  1.25it/s]Loading checkpoint shards:  74%|███████▎  | 14/19 [00:11<00:03,  1.25it/s]Loading checkpoint shards:  79%|███████▉  | 15/19 [00:12<00:03,  1.25it/s]Loading checkpoint shards:  84%|████████▍ | 16/19 [00:12<00:02,  1.26it/s]Loading checkpoint shards:  89%|████████▉ | 17/19 [00:13<00:01,  1.26it/s]Loading checkpoint shards:  95%|█████████▍| 18/19 [00:14<00:00,  1.14it/s]Loading checkpoint shards: 100%|██████████| 19/19 [00:15<00:00,  1.13it/s]Loading checkpoint shards: 100%|██████████| 19/19 [00:15<00:00,  1.22it/s]
-Device set to use cuda:0
-Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
-../aten/src/ATen/native/cuda/TensorCompare.cu:110: _assert_async_cuda_kernel: block: [0,0,0], thread: [0,0,0] Assertion `probability tensor contains either `inf`, `nan` or element < 0` failed.
-cuda:0
-Traceback (most recent call last):
-  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/src/llm_mutation.py", line 62, in <module>
-    augment_network(input_filename=args.input_filename,
-  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/src/llm_mutation.py", line 30, in augment_network
-    code_from_llm = generate_augmented_code(txt2llm, augment_idx-1, apply_quality_control,
-  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/src/llm_utils.py", line 59, in generate_augmented_code
-    code_from_llm = llm_code_generator(txt2llm, top_p=top_p, temperature=temperature)
-  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/src/llm_utils.py", line 302, in submit_mixtral
-    res = generate_text(txt2mixtral)
-  File "/home/hice1/yzhang3942/.conda/envs/llm_env/lib/python3.10/site-packages/transformers/pipelines/text_generation.py", line 285, in __call__
-    return super().__call__(text_inputs, **kwargs)
-  File "/home/hice1/yzhang3942/.conda/envs/llm_env/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1362, in __call__
-    return self.run_single(inputs, preprocess_params, forward_params, postprocess_params)
-  File "/home/hice1/yzhang3942/.conda/envs/llm_env/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1369, in run_single
-    model_outputs = self.forward(model_inputs, **forward_params)
-  File "/home/hice1/yzhang3942/.conda/envs/llm_env/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1269, in forward
-    model_outputs = self._forward(model_inputs, **forward_params)
-  File "/home/hice1/yzhang3942/.conda/envs/llm_env/lib/python3.10/site-packages/transformers/pipelines/text_generation.py", line 383, in _forward
-    generated_sequence = self.model.generate(input_ids=input_ids, attention_mask=attention_mask, **generate_kwargs)
-  File "/home/hice1/yzhang3942/.conda/envs/llm_env/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
-    return func(*args, **kwargs)
-  File "/home/hice1/yzhang3942/.conda/envs/llm_env/lib/python3.10/site-packages/transformers/generation/utils.py", line 2255, in generate
-    result = self._sample(
-  File "/home/hice1/yzhang3942/.conda/envs/llm_env/lib/python3.10/site-packages/transformers/generation/utils.py", line 3300, in _sample
-    next_tokens = torch.multinomial(probs, num_samples=1).squeeze(1)
-RuntimeError: CUDA error: device-side assert triggered
-CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
-For debugging consider passing CUDA_LAUNCH_BLOCKING=1
-Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
-
----------------------------------------
-Begin Slurm Epilog: Mar-03-2025 05:13:21
-Job ID:        1493896
-User ID:       yzhang3942
-Account:       coc
-Job name:      llm_oper
-Resources:     cpu=4,gres/gpu:a100=2,mem=128G,node=1
-Rsrc Used:     cput=00:02:48,vmem=0,walltime=00:00:42,mem=1383984K,energy_used=0
-Partition:     ice-gpu
-QOS:           coe-ice
-Nodes:         atl1-1-01-005-15-0
----------------------------------------

@@ -1,0 +1,6 @@
+# directories to ignore
+0/
+runs/
+sota/ultralytics/ultralytics/results
+datasets/
+

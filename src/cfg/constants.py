@@ -11,6 +11,7 @@ DATA_PATH = "https://github.com/jasonzutty/ultralytics.git"
 # SEED_NETWORK = os.path.join(SOTA_ROOT, 'network.py')
 SOTA_ROOT = os.path.join(ROOT_DIR, 'sota/ultralytics')
 SEED_NETWORK = os.path.join(SOTA_ROOT, 'ultralytics/cfg/models/v3/network.yaml')
+#SEED_NETWORK = os.path.join(SOTA_ROOT, 'ultralytics/cfg/models/v5/yolov5.yaml')
 #SOTA_ROOT = os.path.join(ROOT_DIR, 'sota/ExquisiteNetV2')
 #SEED_NETWORK = os.path.join(SOTA_ROOT, "network.py")
 TEMPLATE = 'templates_yaml'
@@ -28,8 +29,8 @@ else:
 	DEVICE = 'cuda'
 	# DEVICE = 'cpu'
 #LLM_MODEL = 'mixtral'
-#LLM_MODEL = 'llama3'
-LLM_MODEL = 'qwen2.5_7B'
+LLM_MODEL = 'llama3'
+#LLM_MODEL = 'qwen2.5_7B'
 # SEED_PACKAGE_DIR = "./sota/ExquisiteNetV2/divine_seed_module"
 
 """
@@ -65,14 +66,14 @@ HUGGING_FACE_BOOL = False
 #LLM_GPU = 'A100-40GB|A100-80GB|H100|V100-16GB|V100-32GB|RTX6000|A40|L40S'
 #SBATCH -C "TeslaV100-PCIE-32GB|TeslaV100S-PCIE-32GB|NVIDIARTX6000AdaGeneration|NVIDIARTXA6000|NVIDIARTXA5000|NVIDIARTXA4000|GeForceGTX1080Ti"
 #SBATCH --mem 60G
-LLM_GPU = 'A100-40GB|A100-80GB|H100'
+LLM_GPU = 'A100-40GB|A100-80GB|H100|H200'
 PYTHON_BASH_SCRIPT_TEMPLATE = """#!/bin/bash
 #SBATCH --job-name=evaluateGene
 #SBATCH -t 8:00:00
 #SBATCH --gres=gpu:2
 #SBATCH -G 2
-#SBATCH -C "A100-40GB|A100-80GB|H100"
-#SBATCH --mem 128G
+#SBATCH -C "A100-40GB|A100-80GB|H100|H200"
+#SBATCH --mem 128G	
 #SBATCH -c 4
 echo "Launching AIsurBL"
 hostname
