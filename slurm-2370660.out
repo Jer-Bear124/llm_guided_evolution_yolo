@@ -1,0 +1,632 @@
+---------------------------------------
+Begin Slurm Prolog: Mar-24-2025 01:57:21
+Job ID:    2370660
+User ID:   yzhang3942
+Account:   coc
+Job name:  llm_opt
+Partition: ice-gpu
+QOS:       coe-ice
+---------------------------------------
+launching LLM Guided Evolution YOLO
+atl1-1-03-017-9-0.pace.gatech.edu
+
+     active environment : llm_env
+    active env location : /home/hice1/yzhang3942/.conda/envs/llm_env
+            shell level : 2
+       user config file : /home/hice1/yzhang3942/.condarc
+ populated config files : /home/hice1/yzhang3942/.condarc
+          conda version : 24.1.2
+    conda-build version : 3.27.0
+         python version : 3.10.13.final.0
+                 solver : libmamba (default)
+       virtual packages : __archspec=1=sapphirerapids
+                          __conda=24.1.2=0
+                          __cuda=12.5=0
+                          __glibc=2.34=0
+                          __linux=5.14.0=0
+                          __unix=0=0
+       base environment : /usr/local/pace-apps/manual/packages/anaconda3/2023.03  (read only)
+      conda av data dir : /usr/local/pace-apps/manual/packages/anaconda3/2023.03/etc/conda
+  conda av metadata url : None
+           channel URLs : https://conda.anaconda.org/conda-forge/linux-64
+                          https://conda.anaconda.org/conda-forge/noarch
+                          https://repo.anaconda.com/pkgs/main/linux-64
+                          https://repo.anaconda.com/pkgs/main/noarch
+                          https://repo.anaconda.com/pkgs/r/linux-64
+                          https://repo.anaconda.com/pkgs/r/noarch
+          package cache : /usr/local/pace-apps/manual/packages/anaconda3/2023.03/pkgs
+                          /home/hice1/yzhang3942/.conda/pkgs
+       envs directories : /home/hice1/yzhang3942/.conda/envs
+                          /usr/local/pace-apps/manual/packages/anaconda3/2023.03/envs
+               platform : linux-64
+             user-agent : conda/24.1.2 requests/2.29.0 CPython/3.10.13 Linux/5.14.0-427.42.1.el9_4.x86_64 rhel/9.4 glibc/2.34 solver/libmamba conda-libmamba-solver/24.1.0 libmambapy/1.5.6 aau/0.4.3 c/C9Zyz6npjL12wZOMXdKliA s/50oXURTNiksqVARWUXJTBw e/2NDnBFFlbngkLU53PB5Sww
+                UID:GID : 3282802:2626
+             netrc file : None
+           offline mode : False
+
+
+/usr/local/pace-apps/manual/packages/anaconda3/2023.03/bin/python
+CHECK DONE
+Traceback (most recent call last):
+  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/./run_improved.py", line 911, in <module>
+    toolbox.mutate(mutant)
+  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/./run_improved.py", line 727, in customMutation
+    successful_sub_flag, job_id, local_output = submit_bash(file_path, 
+  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/./run_improved.py", line 182, in submit_bash
+    create_bash_file(file_path, **kwargs)
+  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/./run_improved.py", line 166, in create_bash_file
+    bash_script_content = write_bash_script(**kwargs)
+  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/./run_improved.py", line 137, in write_bash_script
+    template_txt, mute_type = generate_template(PROB_EOT, GEN_COUNT, TOP_N_GENES, 
+  File "/storage/ice1/0/2/yzhang3942/llm-guided-evolution/./run_improved.py", line 72, in generate_template
+    top_gene = np.random.choice([x[0] for x in TOP_N_GENES])
+  File "numpy/random/mtrand.pyx", line 974, in numpy.random.mtrand.RandomState.choice
+ValueError: 'a' cannot be empty unless no samples are taken
+
+ERROR conda.cli.main_run:execute(124): `conda run python ./run_improved.py first_test` failed. (See above for error)
+
+⠀⠀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣶⣶⠶⣶⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⣀⣹⣟⣛⣛⣻⣿⣿⣿⡾⠟⢉⣴⠟⢁⣴⠋⣹⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠈⠛⠛⣿⠉⢉⣩⠵⠚⠁⢀⡴⠛⠁⣠⠞⠁⣰⠏⠸⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⢻⣷⠋⠁⠀⢀⡴⠋⠀⢀⡴⠋⠀⣼⠃⠀⡼⢿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢻⣆⣠⡴⠋⠀⠀⣠⠟⠀⢀⡾⠁⠀⡼⠁⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠻⣯⡀⠀⢀⡼⠃⠀⢠⡟⠀⢀⡾⠁⢀⣾⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠙⠻⣶⣟⡀⠀⣰⠏⠀⢀⡾⠁⠀⣼⢹⣿⣀⣤⣤⣴⠶⢿⡿⠛⢛⣷⢶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠶⠶⠾⠷⠶⠿⠛⢻⣟⠉⣥⠟⠁⣠⠟⠀⢠⠞⠁⣄⡿⠻⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⠞⠁⢀⡴⠋⠀⣴⠋⠀⣰⠟⠀⣤⡾⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡄⢠⠞⠁⢀⡾⠁⢀⡼⠃⢀⡴⠋⠀⢸⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣷⠋⠀⣰⠏⠀⣠⠟⠀⣰⠟⠁⢀⡴⠛⣿⠀⠀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣧⡼⠃⢀⡼⠋⢠⡞⠁⣠⣞⣋⣤⣶⣿⡟⠛⣿⠛⠛⣻⠟⠷⢶⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⣦⣾⣤⣴⣯⡶⠾⠟⠛⠉⠉⠉⣿⡇⢠⡏⠀⣰⠏⠀⢀⣼⠋⠻⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⡾⠀⢰⠏⠀⢠⡞⠁⠀⣠⠞⢻⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣷⠇⢠⠏⠀⣰⠋⠀⣠⠞⠁⠀⢀⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡟⢠⠟⢀⡼⠁⣠⠞⠁⣀⣴⢾⣿⣤⣿⣦⣄⣀⡀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡟⣠⠏⣠⠞⣁⣴⣾⣿⣿⣿⣿⣿⣿⡏⢹⡏⠛⠳⣦⣄⡀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⢷⣾⣷⠿⠿⠛⠉⠀⠀⠈⠳⣬⣿⡟⣾⠁⠀⣼⠃⠉⠻⠆
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣧⡏⠀⣼⠃⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠁⡼⠁⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣟⡼⠁⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡿⠁⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢙⣃⠀⠀
+
+Loaded checkpoint from first_test/checkpoint_gen_2.pkl
+
+**************************************************************************************************************
+*                                             LOADING CHECKPOINT                                             *
+**************************************************************************************************************
+
+
+**************************************************************************************************************
+*                                      SUBMITTING MODELS CREATED BY LLM                                      *
+**************************************************************************************************************
+
+
+************************************************************
+*                  Checking Model Runs: 0                  *
+************************************************************
+Checking for: SOTA_ROOT /ultralytics/cfg/models/llm/network_xXxrjVsXBaBLZuKjX3n65P6Ejkf.yaml
+	☠ No Placeholder Fitness for: xXxrjVsXBaBLZuKjX3n65P6Ejkf
+
+************************************************************
+*                   Evalutated All Genes                   *
+************************************************************
+
+
+**************************************************************************************************************
+*                                           STARTING GENERATION: 3                                           *
+**************************************************************************************************************
+
+************************************************************
+*                     Poplutation Info:                    *
+************************************************************
+🧬 Poplutation Size 🧬: 37
+Gene: xXxRxSAT6iC8FtDkgLbOqjk3YtM
+	‣ Fitness: (inf, inf, -inf, -inf), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370589
+Gene: xXxloSdIOdCTes104iUeV44y5YF
+	‣ Fitness: (inf, inf, -inf, -inf), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370590
+Gene: xXxJNT4C5aCn5CAQv3blH8P0z2y
+	‣ Fitness: (inf, inf, -inf, -inf), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370591
+Gene: xXxCY5YfY7FyoaVd0Iof2qOPsd1
+	‣ Fitness: (63467848.0, 4.339385777711868, 0.5217934368536952, 0.1551006913877807), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370592
+Gene: xXxLMMfHwCv9ZDptW8qq2YfTq5t
+	‣ Fitness: (inf, inf, -inf, -inf), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370593
+Gene: xXx9H1bGPXLS0gh8RklvDn31k8i
+	‣ Fitness: (inf, inf, -inf, -inf), Submission Flag: True
+	‣ Runtime: 36 min, Status: completed
+	‣ LLM Job-ID: 2370578
+Gene: xXxgBPb7bMiF9Ms95bu5rm6WoyY
+	‣ Fitness: (61677796.0, 6.345897912979126, 0.533762288215925, 0.1150907820621762), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370594
+Gene: xXxwdBKJxGoHIps8ZClX32Q8S8C
+	‣ Fitness: (205009832.0, 5.437994375824928, 0.5669688635675706, 0.12126724009632396), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370595
+Gene: xXxigE6W7BxuFWsAhp7XyB62oGP
+	‣ Fitness: (inf, inf, -inf, -inf), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370596
+Gene: xXxOYPt8wj8Dj0zWKtvUGheakZq
+	‣ Fitness: (inf, inf, -inf, -inf), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370597
+Gene: xXxrjVsXBaBLZuKjX3n65P6Ejkf
+	‣ Fitness: None, Submission Flag: True
+	‣ Runtime: 36 min, Status: subbed file
+	‣ LLM Job-ID: 2370583
+Gene: xXx0Phn6rF3MhxMqpiUNU74qEIY
+	‣ Fitness: (186005768.0, 9.449223056435585, 0.5296193069862116, 0.18791500886353685), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370598
+Gene: xXxs2HSmYDj0ALtpMY04wmZZn1O
+	‣ Fitness: (18448688.0, 3.3106300979852676, 0.4494862510515864, 0.06853509389482852), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370599
+Gene: xXx4Gm1YCbvGOvRdZvjANpIbHE5
+	‣ Fitness: (inf, inf, -inf, -inf), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370600
+Gene: xXxpTxt6h4cbNaBHhRW73xS8WHG
+	‣ Fitness: (inf, inf, -inf, -inf), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370601
+Gene: xXxgc8XY2ghewBoDJjZCUIVICKW
+	‣ Fitness: (inf, inf, -inf, -inf), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370602
+Gene: xXxZp3x9GJT2BBbG1FsuZubIwTc
+	‣ Fitness: (inf, inf, -inf, -inf), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370603
+Gene: xXx8pENe9J2yoglg0tADD2SUWSj
+	‣ Fitness: (inf, inf, -inf, -inf), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370604
+Gene: xXxarJpB9EyzH9CjuRzQsJizOCR
+	‣ Fitness: (303986320.0, 5.589572712779045, 0.5678760937247381, 0.17853526356047855), Submission Flag: True
+	‣ Runtime: 36 min, Status: completed
+	‣ LLM Job-ID: 2370585
+Gene: xXx1nNDReGfB8XtsEtE0gqES0As
+	‣ Fitness: (374666992.0, 6.643639877438545, 0.6233765449643048, 0.12077093948812789), Submission Flag: True
+	‣ Runtime: 36 min, Status: completed
+	‣ LLM Job-ID: 2370586
+Gene: xXxMtuYrQf19uqGLmoRcG6lqqMn
+	‣ Fitness: (303986320.0, 5.408592522144318, 0.6058200926640972, 0.15590557350443338), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369704
+Gene: xXxlLLeqzSEmTUcpQ5xIe5AkfeY
+	‣ Fitness: (126400224.0, 5.2563585340976715, 0.5179210899004104, 0.05578548835640016), Submission Flag: True
+	‣ Runtime: 56 min, Status: completed
+	‣ LLM Job-ID: 2370518
+Gene: xXxtzm7DFGDCTsfx6XfrLZg9NiA
+	‣ Fitness: (196295312.0, 6.044965237379074, 0.6798449711749036, 0.128446485509758), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369702
+Gene: xXxPCjpMWV9luLj9Kgbfr1utv3U
+	‣ Fitness: (inf, inf, -inf, -inf), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370605
+Gene: xXx0jncICb9UsAXDZMBSjAnmAAv
+	‣ Fitness: (49981336.0, 2.9714908450841904, 0.5535747983215222, 0.08774319278237686), Submission Flag: True
+	‣ Runtime: 56 min, Status: completed
+	‣ LLM Job-ID: 2370525
+Gene: xXxj0JWoxPeFZj1me6ay5D3QfB9
+	‣ Fitness: (172940660.0, 6.929818540811539, 0.6096636887405544, 0.16265231958177204), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369692
+Gene: xXx0FoWVTNhEyywY9xjTcb65pMr
+	‣ Fitness: (102512064.0, 3.992656245827675, 0.5791547848259625, 0.16145028050257257), Submission Flag: True
+	‣ Runtime: 338 min, Status: completed
+	‣ LLM Job-ID: 2369885
+Gene: xXxlSt981gteP0PxWigxwDvSl1V
+	‣ Fitness: (18448688.0, 2.962060272693634, 0.3826248073013299, 0.06374234051735739), Submission Flag: True
+	‣ Runtime: 338 min, Status: completed
+	‣ LLM Job-ID: 2369890
+Gene: xXx81JKeUTfj3NpJbIU2P3MAoaT
+	‣ Fitness: (128124192.0, 5.744416266679764, 0.5276033384209013, 0.22587454012746602), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369683
+Gene: xXx8I0Z2yxWfBTXZFBqgIFfMHhY
+	‣ Fitness: (172940660.0, 3.7889648228883743, 0.5153158642845812, 0.16181417810615034), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369686
+Gene: xXxjVJRo5ToU75uFydINE3bar4d
+	‣ Fitness: (121523104.0, 5.736805498600006, 0.475862765093948, 0.17955618601623685), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369687
+Gene: xXxkZTBYdaYhdIc74gD4Ajx9gHA
+	‣ Fitness: (172940660.0, 6.189392879605293, 0.599253119561886, 0.14512314668435486), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369697
+Gene: xXxWZBDUsjjZG3aBFq6zA7pypN7
+	‣ Fitness: (303986320.0, 5.917195230722427, 0.652778841051793, 0.14201006370998298), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369700
+Gene: xXxyIAYEIE8CJ6ciAAmqZhoquDs
+	‣ Fitness: (303986320.0, 6.611635908484459, 0.5926223415054681, 0.17665677282298795), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369722
+Gene: xXx2dSiJeA9a02ex4kaGAde718Z
+	‣ Fitness: (72015392.0, 2.6362892240285873, 0.5989080234831134, 0.1473890096035708), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369732
+Gene: xXxsSscR64FAag71KH6SRfScpRA
+	‣ Fitness: (128124192.0, 4.822317510843277, 0.5520924767283666, 0.16917848277316871), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369745
+Gene: xXxjswJQPUJu7pncXQWhDUgqSDx
+	‣ Fitness: (49981336.0, 2.6903636753559113, 0.4496029848882592, 0.09289402590208663), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369752
+
+************************************************************
+*                     Invalid Removal                      *
+************************************************************
+
+************************************************************
+*                     Poplutation Info:                    *
+************************************************************
+🧬 Poplutation Size 🧬: 23
+Gene: xXxCY5YfY7FyoaVd0Iof2qOPsd1
+	‣ Fitness: (63467848.0, 4.339385777711868, 0.5217934368536952, 0.1551006913877807), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370592
+Gene: xXxgBPb7bMiF9Ms95bu5rm6WoyY
+	‣ Fitness: (61677796.0, 6.345897912979126, 0.533762288215925, 0.1150907820621762), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370594
+Gene: xXxwdBKJxGoHIps8ZClX32Q8S8C
+	‣ Fitness: (205009832.0, 5.437994375824928, 0.5669688635675706, 0.12126724009632396), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370595
+Gene: xXx0Phn6rF3MhxMqpiUNU74qEIY
+	‣ Fitness: (186005768.0, 9.449223056435585, 0.5296193069862116, 0.18791500886353685), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370598
+Gene: xXxs2HSmYDj0ALtpMY04wmZZn1O
+	‣ Fitness: (18448688.0, 3.3106300979852676, 0.4494862510515864, 0.06853509389482852), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370599
+Gene: xXxarJpB9EyzH9CjuRzQsJizOCR
+	‣ Fitness: (303986320.0, 5.589572712779045, 0.5678760937247381, 0.17853526356047855), Submission Flag: True
+	‣ Runtime: 36 min, Status: completed
+	‣ LLM Job-ID: 2370585
+Gene: xXx1nNDReGfB8XtsEtE0gqES0As
+	‣ Fitness: (374666992.0, 6.643639877438545, 0.6233765449643048, 0.12077093948812789), Submission Flag: True
+	‣ Runtime: 36 min, Status: completed
+	‣ LLM Job-ID: 2370586
+Gene: xXxMtuYrQf19uqGLmoRcG6lqqMn
+	‣ Fitness: (303986320.0, 5.408592522144318, 0.6058200926640972, 0.15590557350443338), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369704
+Gene: xXxlLLeqzSEmTUcpQ5xIe5AkfeY
+	‣ Fitness: (126400224.0, 5.2563585340976715, 0.5179210899004104, 0.05578548835640016), Submission Flag: True
+	‣ Runtime: 56 min, Status: completed
+	‣ LLM Job-ID: 2370518
+Gene: xXxtzm7DFGDCTsfx6XfrLZg9NiA
+	‣ Fitness: (196295312.0, 6.044965237379074, 0.6798449711749036, 0.128446485509758), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369702
+Gene: xXx0jncICb9UsAXDZMBSjAnmAAv
+	‣ Fitness: (49981336.0, 2.9714908450841904, 0.5535747983215222, 0.08774319278237686), Submission Flag: True
+	‣ Runtime: 56 min, Status: completed
+	‣ LLM Job-ID: 2370525
+Gene: xXxj0JWoxPeFZj1me6ay5D3QfB9
+	‣ Fitness: (172940660.0, 6.929818540811539, 0.6096636887405544, 0.16265231958177204), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369692
+Gene: xXx0FoWVTNhEyywY9xjTcb65pMr
+	‣ Fitness: (102512064.0, 3.992656245827675, 0.5791547848259625, 0.16145028050257257), Submission Flag: True
+	‣ Runtime: 338 min, Status: completed
+	‣ LLM Job-ID: 2369885
+Gene: xXxlSt981gteP0PxWigxwDvSl1V
+	‣ Fitness: (18448688.0, 2.962060272693634, 0.3826248073013299, 0.06374234051735739), Submission Flag: True
+	‣ Runtime: 338 min, Status: completed
+	‣ LLM Job-ID: 2369890
+Gene: xXx81JKeUTfj3NpJbIU2P3MAoaT
+	‣ Fitness: (128124192.0, 5.744416266679764, 0.5276033384209013, 0.22587454012746602), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369683
+Gene: xXx8I0Z2yxWfBTXZFBqgIFfMHhY
+	‣ Fitness: (172940660.0, 3.7889648228883743, 0.5153158642845812, 0.16181417810615034), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369686
+Gene: xXxjVJRo5ToU75uFydINE3bar4d
+	‣ Fitness: (121523104.0, 5.736805498600006, 0.475862765093948, 0.17955618601623685), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369687
+Gene: xXxkZTBYdaYhdIc74gD4Ajx9gHA
+	‣ Fitness: (172940660.0, 6.189392879605293, 0.599253119561886, 0.14512314668435486), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369697
+Gene: xXxWZBDUsjjZG3aBFq6zA7pypN7
+	‣ Fitness: (303986320.0, 5.917195230722427, 0.652778841051793, 0.14201006370998298), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369700
+Gene: xXxyIAYEIE8CJ6ciAAmqZhoquDs
+	‣ Fitness: (303986320.0, 6.611635908484459, 0.5926223415054681, 0.17665677282298795), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369722
+Gene: xXx2dSiJeA9a02ex4kaGAde718Z
+	‣ Fitness: (72015392.0, 2.6362892240285873, 0.5989080234831134, 0.1473890096035708), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369732
+Gene: xXxsSscR64FAag71KH6SRfScpRA
+	‣ Fitness: (128124192.0, 4.822317510843277, 0.5520924767283666, 0.16917848277316871), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369745
+Gene: xXxjswJQPUJu7pncXQWhDUgqSDx
+	‣ Fitness: (49981336.0, 2.6903636753559113, 0.4496029848882592, 0.09289402590208663), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369752
+
+************************************************************
+*                        Selection                         *
+************************************************************
+
+************************************************************
+*                     Poplutation Info:                    *
+************************************************************
+🧬 Poplutation Size 🧬: 20
+Gene: xXxWZBDUsjjZG3aBFq6zA7pypN7
+	‣ Fitness: (303986320.0, 5.917195230722427, 0.652778841051793, 0.14201006370998298), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369700
+Gene: xXxlSt981gteP0PxWigxwDvSl1V
+	‣ Fitness: (18448688.0, 2.962060272693634, 0.3826248073013299, 0.06374234051735739), Submission Flag: True
+	‣ Runtime: 338 min, Status: completed
+	‣ LLM Job-ID: 2369890
+Gene: xXx2dSiJeA9a02ex4kaGAde718Z
+	‣ Fitness: (72015392.0, 2.6362892240285873, 0.5989080234831134, 0.1473890096035708), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369732
+Gene: xXx81JKeUTfj3NpJbIU2P3MAoaT
+	‣ Fitness: (128124192.0, 5.744416266679764, 0.5276033384209013, 0.22587454012746602), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369683
+Gene: xXxyIAYEIE8CJ6ciAAmqZhoquDs
+	‣ Fitness: (303986320.0, 6.611635908484459, 0.5926223415054681, 0.17665677282298795), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369722
+Gene: xXxjVJRo5ToU75uFydINE3bar4d
+	‣ Fitness: (121523104.0, 5.736805498600006, 0.475862765093948, 0.17955618601623685), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369687
+Gene: xXx8I0Z2yxWfBTXZFBqgIFfMHhY
+	‣ Fitness: (172940660.0, 3.7889648228883743, 0.5153158642845812, 0.16181417810615034), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369686
+Gene: xXxtzm7DFGDCTsfx6XfrLZg9NiA
+	‣ Fitness: (196295312.0, 6.044965237379074, 0.6798449711749036, 0.128446485509758), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369702
+Gene: xXx81JKeUTfj3NpJbIU2P3MAoaT
+	‣ Fitness: (128124192.0, 5.744416266679764, 0.5276033384209013, 0.22587454012746602), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369683
+Gene: xXxtzm7DFGDCTsfx6XfrLZg9NiA
+	‣ Fitness: (196295312.0, 6.044965237379074, 0.6798449711749036, 0.128446485509758), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369702
+Gene: xXx1nNDReGfB8XtsEtE0gqES0As
+	‣ Fitness: (374666992.0, 6.643639877438545, 0.6233765449643048, 0.12077093948812789), Submission Flag: True
+	‣ Runtime: 36 min, Status: completed
+	‣ LLM Job-ID: 2370586
+Gene: xXxwdBKJxGoHIps8ZClX32Q8S8C
+	‣ Fitness: (205009832.0, 5.437994375824928, 0.5669688635675706, 0.12126724009632396), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370595
+Gene: xXxarJpB9EyzH9CjuRzQsJizOCR
+	‣ Fitness: (303986320.0, 5.589572712779045, 0.5678760937247381, 0.17853526356047855), Submission Flag: True
+	‣ Runtime: 36 min, Status: completed
+	‣ LLM Job-ID: 2370585
+Gene: xXxwdBKJxGoHIps8ZClX32Q8S8C
+	‣ Fitness: (205009832.0, 5.437994375824928, 0.5669688635675706, 0.12126724009632396), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370595
+Gene: xXxsSscR64FAag71KH6SRfScpRA
+	‣ Fitness: (128124192.0, 4.822317510843277, 0.5520924767283666, 0.16917848277316871), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369745
+Gene: xXxs2HSmYDj0ALtpMY04wmZZn1O
+	‣ Fitness: (18448688.0, 3.3106300979852676, 0.4494862510515864, 0.06853509389482852), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370599
+Gene: xXxj0JWoxPeFZj1me6ay5D3QfB9
+	‣ Fitness: (172940660.0, 6.929818540811539, 0.6096636887405544, 0.16265231958177204), Submission Flag: True
+	‣ Runtime: 378 min, Status: completed
+	‣ LLM Job-ID: 2369692
+Gene: xXx0Phn6rF3MhxMqpiUNU74qEIY
+	‣ Fitness: (186005768.0, 9.449223056435585, 0.5296193069862116, 0.18791500886353685), Submission Flag: True
+	‣ Runtime: 33 min, Status: completed
+	‣ LLM Job-ID: 2370598
+Gene: xXxlSt981gteP0PxWigxwDvSl1V
+	‣ Fitness: (18448688.0, 2.962060272693634, 0.3826248073013299, 0.06374234051735739), Submission Flag: True
+	‣ Runtime: 338 min, Status: completed
+	‣ LLM Job-ID: 2369890
+Gene: xXxlLLeqzSEmTUcpQ5xIe5AkfeY
+	‣ Fitness: (126400224.0, 5.2563585340976715, 0.5179210899004104, 0.05578548835640016), Submission Flag: True
+	‣ Runtime: 56 min, Status: completed
+	‣ LLM Job-ID: 2370518
+[144, 122, 23, 20]
+
+************************************************************
+*                          Mating                          *
+************************************************************
+Mating: xXxyIAYEIE8CJ6ciAAmqZhoquDs and xXxjVJRo5ToU75uFydINE3bar4d
+	‣ Bash script saved to 0/xXxO3sSIusz3SIbNJBoZid5J5Gy.sh
+	‣ Output: Submitted batch job 2370661
+Mating: xXxjVJRo5ToU75uFydINE3bar4d and xXxyIAYEIE8CJ6ciAAmqZhoquDs
+	‣ Bash script saved to 0/xXxOJCHW4irP1Lq96noDhZeQT7w.sh
+	‣ Output: Submitted batch job 2370662
+Mating: xXxarJpB9EyzH9CjuRzQsJizOCR and xXxwdBKJxGoHIps8ZClX32Q8S8C
+	‣ Bash script saved to 0/xXxA6P7x6NIp3wI0dGpq9CmgiSa.sh
+	‣ Output: Submitted batch job 2370663
+Mating: xXxwdBKJxGoHIps8ZClX32Q8S8C and xXxarJpB9EyzH9CjuRzQsJizOCR
+	‣ Bash script saved to 0/xXxhxHQpqT57O945MHrYr7Dlszu.sh
+	‣ Output: Submitted batch job 2370664
+Mating: xXxsSscR64FAag71KH6SRfScpRA and xXxs2HSmYDj0ALtpMY04wmZZn1O
+	‣ Bash script saved to 0/xXxyAvfEAjF3AFJu7pN6iE4gYcJ.sh
+	‣ Output: Submitted batch job 2370665
+Mating: xXxs2HSmYDj0ALtpMY04wmZZn1O and xXxsSscR64FAag71KH6SRfScpRA
+	‣ Bash script saved to 0/xXxyrNB7mAtylxe8oUEI0nh8h39.sh
+	‣ Output: Submitted batch job 2370666
+
+************************************************************
+*                Batch Checking Mated Genes                *
+************************************************************
+Delayed Mating Check: xXxO3sSIusz3SIbNJBoZid5J5Gy, LLM Job ID: 2370661
+	‣ Checking for Crossover Job Completion: 2370661 for xXxO3sSIusz3SIbNJBoZid5J5Gy
+	‣ Waiting on check4job_completion LLM job: 2370661 Time: 60s
+	‣ Waiting on check4job_completion LLM job: 2370661 Time: 120s
+	☑ LLM Job Completed Successfully.
+	‣ Model Files for xXxO3sSIusz3SIbNJBoZid5J5Gy are Loaded
+	☑ Mated: xXxO3sSIusz3SIbNJBoZid5J5Gy
+Delayed Mating Check: xXxOJCHW4irP1Lq96noDhZeQT7w, LLM Job ID: 2370662
+	‣ Checking for Crossover Job Completion: 2370662 for xXxOJCHW4irP1Lq96noDhZeQT7w
+	☑ LLM Job Completed Successfully.
+	‣ Model Files for xXxOJCHW4irP1Lq96noDhZeQT7w are Loaded
+	☑ Mated: xXxOJCHW4irP1Lq96noDhZeQT7w
+Delayed Mating Check: xXxA6P7x6NIp3wI0dGpq9CmgiSa, LLM Job ID: 2370663
+	‣ Checking for Crossover Job Completion: 2370663 for xXxA6P7x6NIp3wI0dGpq9CmgiSa
+	☑ LLM Job Completed Successfully.
+	‣ Model Files for xXxA6P7x6NIp3wI0dGpq9CmgiSa are Loaded
+	☑ Mated: xXxA6P7x6NIp3wI0dGpq9CmgiSa
+Delayed Mating Check: xXxhxHQpqT57O945MHrYr7Dlszu, LLM Job ID: 2370664
+	‣ Checking for Crossover Job Completion: 2370664 for xXxhxHQpqT57O945MHrYr7Dlszu
+	‣ Waiting on check4job_completion LLM job: 2370664 Time: 60s
+	‣ Waiting on check4job_completion LLM job: 2370664 Time: 120s
+	‣ Waiting on check4job_completion LLM job: 2370664 Time: 180s
+	☠ Error Found in LLM Job Output.
+	‣ Error Loading Model Files for xXxhxHQpqT57O945MHrYr7Dlszu!!
+	☠ Failed Mated: xXxwdBKJxGoHIps8ZClX32Q8S8C
+Delayed Mating Check: xXxyAvfEAjF3AFJu7pN6iE4gYcJ, LLM Job ID: 2370665
+	‣ Checking for Crossover Job Completion: 2370665 for xXxyAvfEAjF3AFJu7pN6iE4gYcJ
+	☑ LLM Job Completed Successfully.
+	‣ Model Files for xXxyAvfEAjF3AFJu7pN6iE4gYcJ are Loaded
+	☑ Mated: xXxyAvfEAjF3AFJu7pN6iE4gYcJ
+Delayed Mating Check: xXxyrNB7mAtylxe8oUEI0nh8h39, LLM Job ID: 2370666
+	‣ Checking for Crossover Job Completion: 2370666 for xXxyrNB7mAtylxe8oUEI0nh8h39
+	☑ LLM Job Completed Successfully.
+	‣ Model Files for xXxyrNB7mAtylxe8oUEI0nh8h39 are Loaded
+	☑ Mated: xXxyrNB7mAtylxe8oUEI0nh8h39
+
+************************************************************
+*                     Poplutation Info:                    *
+************************************************************
+🧬 Poplutation Size 🧬: 20
+Gene: xXxWZBDUsjjZG3aBFq6zA7pypN7
+	‣ Fitness: (303986320.0, 5.917195230722427, 0.652778841051793, 0.14201006370998298), Submission Flag: True
+	‣ Runtime: 383 min, Status: completed
+	‣ LLM Job-ID: 2369700
+Gene: xXxlSt981gteP0PxWigxwDvSl1V
+	‣ Fitness: (18448688.0, 2.962060272693634, 0.3826248073013299, 0.06374234051735739), Submission Flag: True
+	‣ Runtime: 343 min, Status: completed
+	‣ LLM Job-ID: 2369890
+Gene: xXx2dSiJeA9a02ex4kaGAde718Z
+	‣ Fitness: (72015392.0, 2.6362892240285873, 0.5989080234831134, 0.1473890096035708), Submission Flag: True
+	‣ Runtime: 383 min, Status: completed
+	‣ LLM Job-ID: 2369732
+Gene: xXx81JKeUTfj3NpJbIU2P3MAoaT
+	‣ Fitness: (128124192.0, 5.744416266679764, 0.5276033384209013, 0.22587454012746602), Submission Flag: True
+	‣ Runtime: 383 min, Status: completed
+	‣ LLM Job-ID: 2369683
+Gene: xXxO3sSIusz3SIbNJBoZid5J5Gy
+	‣ Fitness: None, Submission Flag: True
+	‣ Runtime: 5 min, Status: subbed file
+	‣ LLM Job-ID: 2370661
+Gene: xXxOJCHW4irP1Lq96noDhZeQT7w
+	‣ Fitness: None, Submission Flag: True
+	‣ Runtime: 5 min, Status: subbed file
+	‣ LLM Job-ID: 2370662
+Gene: xXx8I0Z2yxWfBTXZFBqgIFfMHhY
+	‣ Fitness: (172940660.0, 3.7889648228883743, 0.5153158642845812, 0.16181417810615034), Submission Flag: True
+	‣ Runtime: 383 min, Status: completed
+	‣ LLM Job-ID: 2369686
+Gene: xXxtzm7DFGDCTsfx6XfrLZg9NiA
+	‣ Fitness: (196295312.0, 6.044965237379074, 0.6798449711749036, 0.128446485509758), Submission Flag: True
+	‣ Runtime: 383 min, Status: completed
+	‣ LLM Job-ID: 2369702
+Gene: xXx81JKeUTfj3NpJbIU2P3MAoaT
+	‣ Fitness: (128124192.0, 5.744416266679764, 0.5276033384209013, 0.22587454012746602), Submission Flag: True
+	‣ Runtime: 383 min, Status: completed
+	‣ LLM Job-ID: 2369683
+Gene: xXxtzm7DFGDCTsfx6XfrLZg9NiA
+	‣ Fitness: (196295312.0, 6.044965237379074, 0.6798449711749036, 0.128446485509758), Submission Flag: True
+	‣ Runtime: 383 min, Status: completed
+	‣ LLM Job-ID: 2369702
+Gene: xXx1nNDReGfB8XtsEtE0gqES0As
+	‣ Fitness: (374666992.0, 6.643639877438545, 0.6233765449643048, 0.12077093948812789), Submission Flag: True
+	‣ Runtime: 41 min, Status: completed
+	‣ LLM Job-ID: 2370586
+Gene: xXxwdBKJxGoHIps8ZClX32Q8S8C
+Gene: xXxA6P7x6NIp3wI0dGpq9CmgiSa
+	‣ Fitness: None, Submission Flag: True
+	‣ Runtime: 5 min, Status: subbed file
+	‣ LLM Job-ID: 2370663
+Gene: xXxhxHQpqT57O945MHrYr7Dlszu
+	‣ Fitness: None, Submission Flag: True
+	‣ Runtime: 5 min, Status: subbed file
+	‣ LLM Job-ID: 2370664
+Gene: xXxyAvfEAjF3AFJu7pN6iE4gYcJ
+	‣ Fitness: None, Submission Flag: True
+	‣ Runtime: 5 min, Status: subbed file
+	‣ LLM Job-ID: 2370665
+Gene: xXxyrNB7mAtylxe8oUEI0nh8h39
+	‣ Fitness: None, Submission Flag: True
+	‣ Runtime: 5 min, Status: subbed file
+	‣ LLM Job-ID: 2370666
+Gene: xXxj0JWoxPeFZj1me6ay5D3QfB9
+	‣ Fitness: (172940660.0, 6.929818540811539, 0.6096636887405544, 0.16265231958177204), Submission Flag: True
+	‣ Runtime: 383 min, Status: completed
+	‣ LLM Job-ID: 2369692
+Gene: xXx0Phn6rF3MhxMqpiUNU74qEIY
+	‣ Fitness: (186005768.0, 9.449223056435585, 0.5296193069862116, 0.18791500886353685), Submission Flag: True
+	‣ Runtime: 38 min, Status: completed
+	‣ LLM Job-ID: 2370598
+Gene: xXxlSt981gteP0PxWigxwDvSl1V
+	‣ Fitness: (18448688.0, 2.962060272693634, 0.3826248073013299, 0.06374234051735739), Submission Flag: True
+	‣ Runtime: 343 min, Status: completed
+	‣ LLM Job-ID: 2369890
+Gene: xXxlLLeqzSEmTUcpQ5xIe5AkfeY
+	‣ Fitness: (126400224.0, 5.2563585340976715, 0.5179210899004104, 0.05578548835640016), Submission Flag: True
+	‣ Runtime: 61 min, Status: completed
+	‣ LLM Job-ID: 2370518
+
+************************************************************
+*                         Mutating                         *
+************************************************************
+Mutating: xXxWZBDUsjjZG3aBFq6zA7pypN7 and Replaceing with: xXxtfU2cq5opdexgErH9y4bTUW1
+	‣ FixedPrompts
+	‣ Bash script saved to 0/xXxtfU2cq5opdexgErH9y4bTUW1.sh
+	‣ Output: Submitted batch job 2370667
+Mutating: xXxlSt981gteP0PxWigxwDvSl1V and Replaceing with: xXx9vFiyyJTfeiSQMNOcTuXNLuA
+	‣ EoT
+Before selecting top gene
+TOP_N_GENES is empty before selecting top gene!
+TOP_N_GENES size: 0
+TOP_N_GENES content: []
+
+---------------------------------------
+Begin Slurm Epilog: Mar-24-2025 02:02:34
+Job ID:        2370660
+User ID:       yzhang3942
+Account:       coc
+Job name:      llm_opt
+Resources:     cpu=4,gres/gpu:h200=2,mem=128G,node=1
+Rsrc Used:     cput=00:20:48,vmem=0,walltime=00:05:12,mem=406800K,energy_used=0
+Partition:     ice-gpu
+QOS:           coe-ice
+Nodes:         atl1-1-03-017-9-0
+---------------------------------------

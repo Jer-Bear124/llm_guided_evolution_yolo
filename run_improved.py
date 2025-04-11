@@ -63,14 +63,24 @@ def generate_template(PROB_EOT, GEN_COUNT, TOP_N_GENES, SOTA_ROOT, SEED_NETWORK,
     """
     if (PROB_EOT > np.random.uniform()) and (GEN_COUNT > 0):
         print("\t‣ EoT")
+        print(f"Before selecting top gene") #debug purposes
+        if not TOP_N_GENES:
+            print("TOP_N_GENES is empty before selecting top gene!")
+
+        print(f"TOP_N_GENES size: {len(TOP_N_GENES)}")
+        print(f"TOP_N_GENES content: {TOP_N_GENES}")
         top_gene = np.random.choice([x[0] for x in TOP_N_GENES])
+        print(f"Selected top gene: {top_gene}") #debug purposes
         if FILE_TYPE == 'py':
             temp_file_name = f"{SOTA_ROOT}/models/network_{top_gene}.py"
         elif FILE_TYPE == 'yaml':
             temp_file_name = f'{SOTA_ROOT}/ultralytics/cfg/models/llm/network_{top_gene}.yaml'
+        print(f"Temp file: {temp_file_name}, Seed file: {SEED_NETWORK}") #debug purposes
         parts_x = split_file(temp_file_name)
         parts_y = split_file(SEED_NETWORK)
+        print(f"Parts X: {len(parts_x)}, Parts Y: {len(parts_y)}") #debug purposes
         parts = [(x.strip(), y.strip(), idx) for idx, (x, y) in enumerate(zip(parts_x[1:], parts_y[1:]))]
+        print(f"Parts difference count: {sum(1 for x, y in zip(parts_x, parts_y) if x.strip() != y.strip())}") #debug purposes
         random.shuffle(parts)
         for x, y, augment_idx in parts:
             if x.strip() != y.strip():
@@ -855,18 +865,24 @@ if __name__ == "__main__":
     check_and_update_fitness(population)
     # print_ancestery(GLOBAL_DATA_ANCESTERY)
     # Evolution
+    print(f"Debug line: Initial population size: {len(population)}") #debug
+    print(f"Debug line: NUM_EOT_ELITES: {NUM_EOT_ELITES}") #debug
     for gen in range(start_gen, num_generations):
         GEN_COUNT = gen
         TOP_N_GENES = tools.selSPEA2(population, NUM_EOT_ELITES)
+        box_print("TOP N GENES")
+        print_population(TOP_N_GENES, GLOBAL_DATA)
         box_print(f"STARTING GENERATION: {gen}", new_line_end=False)
         print_population(population, GLOBAL_DATA)
         box_print(f"Invalid Removal", print_bbox_len=60, new_line_end=False)
+        print(f"Debug line: Population size after invalid removal: {len(population)}") #debug
         # Remove individuals with placeholder fitness
         population = [ind for ind in population if ind.fitness.values != INVALID_FITNESS_MAX]
         print_population(population, GLOBAL_DATA)
         # Select the next generation's parents
         box_print(f"Selection", print_bbox_len=60, new_line_end=False)
         # These bypass the mutation and cross-over so we dont lose them
+        print(num_elites)
         elites = tools.selSPEA2(population, num_elites)
         # Select the next generation's parents
         offspring = toolbox.select(population, population_size)
