@@ -39,12 +39,12 @@ def generate_augmented_code(txt2llm, augment_idx, apply_quality_control, top_p, 
     box_print("PROMPT TO LLM", print_bbox_len=60, new_line_end=False)
     print(txt2llm)
     
-    if hugging_face is False:
+    if hugging_face is True: #change HUGGING_FACE_BOOL in constants.py
         llm_code_generator = submit_mixtral
         qc_func = llm_code_qc
     else:
         if LLM_MODEL == 'mixtral':
-            llm_code_generator = submit_mixtral_hf
+            llm_code_generator = submit_mixtral #not mixtral_hf
         elif LLM_MODEL == 'llama3':
             llm_code_generator = submit_llama3_hf
         elif LLM_MODEL == 'qwen2.5_7B':
@@ -131,7 +131,8 @@ def submit_mixtral_hf(txt2mixtral, max_new_tokens=1024, top_p=0.15, temperature=
                          model_path="/storage/ice-shared/vip-vvk/llm_storage/mistralai/Mixtral-8x7B-Instruct-v0.1", 
                          return_gen=False):
 
-    max_new_tokens = np.random.randint(900, 1300)  # Randomize new tokens
+    max_new_tokens = np.random.randint(1300, 1500)  # Randomize new tokens (orig. 900, 1300)
+    print("Utilizing Mixtral-8x7b-Instruct-v0.1 (submit_mixtral_hf)")
     device = "cuda" if torch.cuda.is_available() else "cpu"  # Use GPU if available
 
     # Load Model & Tokenizer Locally
@@ -201,7 +202,8 @@ def submit_llama3_hf(txt2llama, max_new_tokens=1024, top_p=0.15, temperature=0.1
                         model_path="/storage/ice-shared/vip-vvk/llm_storage/meta-llama/Llama-3.3-70B-Instruct", 
                         return_gen=False):
 
-    max_new_tokens = np.random.randint(900, 1300)  # Randomize new tokens
+    max_new_tokens = np.random.randint(1200, 1500)  # Randomize new tokens
+    print("Utilizing llama3.3-70B-Instruct")
     device = "cuda" if torch.cuda.is_available() else "cpu"  # Use GPU if available
 
     # Load Model & Tokenizer Locally
@@ -271,7 +273,8 @@ def submit_llama3_hf(txt2llama, max_new_tokens=1024, top_p=0.15, temperature=0.1
 def submit_mixtral(txt2mixtral, max_new_tokens=764, top_p=0.15, temperature=0.1, 
                          model_path="/storage/ice-shared/vip-vvk/llm_storage/mistralai/Mixtral-8x7B-Instruct-v0.1", 
                          return_gen=False):
-    max_new_tokens = np.random.randint(800, 1000)
+    max_new_tokens = np.random.randint(1300, 1500)
+    print("Utilizing Mixtral-8x7b-Instruct-v0.1 (submit_mixtral)")
     print(f'max_new_tokens: {max_new_tokens}')
     start_time = time.time()
     
@@ -354,7 +357,8 @@ def submit_mixtral(txt2mixtral, max_new_tokens=764, top_p=0.15, temperature=0.1,
 def submit_qwen(txt2smQwen, max_new_tokens=764, top_p=0.15, temperature=0.1, 
                          model_path="/storage/ice-shared/vip-vvk/llm_storage/Qwen/Qwen2.5-7B-Instruct", 
                          return_gen=False):
-    max_new_tokens = np.random.randint(800, 1000)
+    max_new_tokens = np.random.randint(2000, 2400)
+    print("Utilizing Qwen2.5-7B-Instruct (submit_mixtral)")
     print(f'max_new_tokens: {max_new_tokens}')
     start_time = time.time()
     

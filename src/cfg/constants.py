@@ -28,8 +28,8 @@ if MACOS:
 else:
 	DEVICE = 'cuda'
 	# DEVICE = 'cpu'
-#LLM_MODEL = 'mixtral'
-LLM_MODEL = 'llama3'
+LLM_MODEL = 'mixtral'
+#LLM_MODEL = 'llama3'
 #LLM_MODEL = 'qwen2.5_7B'
 # SEED_PACKAGE_DIR = "./sota/ExquisiteNetV2/divine_seed_module"
 
@@ -41,18 +41,18 @@ INVALID_FITNESS_MAX = tuple([float(x*np.inf*-1) for x in FITNESS_WEIGHTS])
 # this is just a unique value
 PLACEHOLDER_FITNESS = tuple([int(x*9999999999*-1) for x in FITNESS_WEIGHTS])
 
-NUM_EOT_ELITES = 10 #10 originally, set to 5
+NUM_EOT_ELITES = 5 #10 originally
 GENERATION = 0
 PROB_QC = 0.0
-PROB_EOT = 0.25
-num_generations = 50  # Number of generations
-start_population_size = 80
+PROB_EOT = 0.0
+num_generations = 10  # Number of generations
+start_population_size = 80 #80
 # start_population_size = 144   # Size of the population 124=72
 #population_size = 44 # with cx_prob (0.25) and mute_prob (0.7) you get about %50 successful turnover
-population_size = 44 # with cx_prob (0.25) and mute_prob (0.7) you get about %50 successful turnover
+population_size = 44 #44 # with cx_prob (0.25) and mute_prob (0.7) you get about %50 successful turnover
 crossover_probability = 0.35  # Probability of mating two individuals
 mutation_probability = 0.8 # Probability of mutating an individual
-num_elites = 44
+num_elites = 44 #44
 hof_size = 100
 
 

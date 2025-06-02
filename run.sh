@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --job-name=llm_opt
-#SBATCH -t 8:00:00              		# Runtime in D-HH:MM
+#SBATCH -t 12:00:00             # Runtime in D-HH:MM
 #SBATCH --mem 128G
-#SBATCH -c 4                          # number of CPU cores
-#SBATCH -G 2
-#SBATCH --gres=gpu:2
+#SBATCH -c 4                    # number of CPU cores
+#SBATCH -G 1
+#SBATCH --gres=gpu:1
 #SBATCH -C "A100-40GB|A100-80GB|H100|H200"
 echo "launching LLM Guided Evolution YOLO"
 hostname

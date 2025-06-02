@@ -61,7 +61,7 @@ def generate_template(PROB_EOT, GEN_COUNT, TOP_N_GENES, SOTA_ROOT, SEED_NETWORK,
     :param ROOT_DIR: Root directory for templates.
     :return: A tuple containing the template text and the mutation type.
     """
-    if (PROB_EOT > np.random.uniform()) and (GEN_COUNT > 0):
+    if (PROB_EOT > np.random.uniform()) and (GEN_COUNT > 1): #What if we set GEN_COUNT > 1?
         print("\t‣ EoT")
         print(f"Before selecting top gene") #debug purposes
         if not TOP_N_GENES:
@@ -285,7 +285,7 @@ def create_individual(container, temp_min=0.05, temp_max=0.4):
         input_filename_x=f'{SOTA_ROOT}/network.py'
         output_filename =f'{SOTA_ROOT}/models/network_{gene_id}.py'
     elif FILE_TYPE == 'yaml':
-        input_filename_x=f'{SOTA_ROOT}/ultralytics/cfg/models/v3/network.yaml'
+        input_filename_x=f'{SOTA_ROOT}/ultralytics/cfg/models/v3/network.yaml' #changed from v3 to v12
         output_filename =f'{SOTA_ROOT}/ultralytics/cfg/models/llm/network_{gene_id}.yaml'   
     # Assign a file path and name for the model creation bash
     file_path = os.path.join(out_dir, f'{gene_id}.sh')
