@@ -12,3 +12,4 @@ datasets/
 runs/
 !runs/detect
 finals_sp25/
+sota/ultralytics/ultralytics/
