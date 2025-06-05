@@ -1,4 +1,6 @@
 # directories to ignore
+__pycache__/
+*.pyc
 0/
 runs/
 sota/ultralytics/ultralytics/results
