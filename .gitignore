@@ -8,3 +8,7 @@ sota/ExquisiteNetV2/cifar-10-batches-py
 *.bmp
 build/
 tests/*/outputs
+datasets/
+runs/
+!runs/detect
+finals_sp25/
