@@ -28,9 +28,9 @@ if MACOS:
 else:
 	DEVICE = 'cuda'
 	# DEVICE = 'cpu'
-LLM_MODEL = 'mixtral'
+#LLM_MODEL = 'mixtral'
 #LLM_MODEL = 'llama3'
-#LLM_MODEL = 'qwen2.5_7B'
+LLM_MODEL = 'qwen2.5_7B'
 # SEED_PACKAGE_DIR = "./sota/ExquisiteNetV2/divine_seed_module"
 
 """
@@ -84,7 +84,8 @@ module load cuda/12.1.1
 
 # Activate Conda environment
 source /opt/apps/Module/anaconda3/2021.11/bin/activate huggingface_env
-# conda info
+#conda activate llm_env
+#conda info
 
 # Set the TOKENIZERS_PARALLELISM environment variable if needed
 # export TOKENIZERS_PARALLELISM=false
@@ -120,7 +121,8 @@ module load gcc/13.2.0
 module load cuda/12.1.1
 # Activate Conda environment
 source /opt/apps/Module/anaconda3/2021.11/bin/activate huggingface_env
-# conda info
+#conda activate llm_env
+#conda info
 
 # Set the TOKENIZERS_PARALLELISM environment variable if needed
 # export TOKENIZERS_PARALLELISM=false

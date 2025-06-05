@@ -6,3 +6,8 @@ datasets/
 first_test/
 finals_sp25/
 sota/ultralytics/ultralytics/cfg/models/llm
+slurm_job_outputs/evaluate_gene_jobs/*
+slurm_job_outputs/llm_opers_jobs/*
+
+!slurm_job_outputs/evaluate_gene_jobs/
+slurm_job_outputs/llm_opers_jobs/
