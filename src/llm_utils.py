@@ -19,7 +19,7 @@ import requests
 import huggingface_hub
 from huggingface_hub import InferenceClient
 import textwrap
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer, AutoModelForCausalLM 
 from google import genai
 from google.genai import types
 
@@ -42,13 +42,15 @@ def generate_augmented_code(txt2llm, augment_idx, apply_quality_control, top_p, 
     print(txt2llm)
     
     if inference_submission is False:
-        llm_code_generator = submit_mixtral
+        llm_code_generator = submit_mixtral_paceice
         qc_func = llm_code_qc
     else:
         if LLM_MODEL == 'mixtral':
-            llm_code_generator = submit_mixtral_hf
+            llm_code_generator = submit_mixtral_paceice
         elif LLM_MODEL == 'llama3':
-            llm_code_generator = submit_llama3_hf
+            llm_code_generator = submit_llama3_paceice
+        elif LLM_MODEL == 'qwen2.5':
+            llm_code_generator = submit_qwen_paceice
         elif LLM_MODEL == 'gemini':
             llm_code_generator = submit_gemini_api
         qc_func = llm_code_qc_hf
@@ -288,7 +290,206 @@ def submit_mixtral(txt2mixtral, max_new_tokens=764, top_p=0.15, temperature=0.1,
     else:
         return output_txt, generate_text
     
+#Below contains all of the functions for running the models locally on GT's PACE-ICE compute cluster
+def submit_qwen_paceice(txt2smQwen, max_new_tokens=764, top_p=0.15, temperature=0.1, 
+                         model_path="/storage/ice-shared/vip-vvk/llm_storage/Qwen/Qwen2.5-7B-Instruct", 
+                         return_gen=False):
+    """Submits a prompt to the Qwen2.5-7B-Instruct model on PACE-ICE.
+
+    This function loads the specified Qwen model from a local path, creates a
+    text-generation pipeline, and generates a response to the given prompt.
+    Note that the 'max_new_tokens' argument is overridden internally by a
+    random value between 2000 and 2400.
+
+    Args:
+        txt2smQwen (str): The input prompt to send to the model.
+        max_new_tokens (int, optional): The maximum number of new tokens to
+            generate. Defaults to 764, but is ignored.
+        top_p (float, optional): The nucleus sampling probability. Defaults to 0.15.
+        temperature (float, optional): The sampling temperature for generation.
+            Defaults to 0.1.
+        model_path (str, optional): The local file path to the Qwen2.5-7B-Instruct
+            model directory. Defaults to a shared path on the PACE-ICE cluster.
+        return_gen (bool, optional): If True, returns the generation pipeline
+            object along with the output text. Defaults to False.
+
+    Returns:
+        str or tuple[str, transformers.Pipeline]: The generated text if
+        'return_gen' is False. Otherwise, a tuple containing the generated
+        text and the text-generation pipeline object.
+    """
+
+    max_new_tokens = np.random.randint(2000, 2400)
+    print("Utilizing Qwen2.5-7B-Instruct (submit_qwen_paceice)")
+    print(f'max_new_tokens: {max_new_tokens}')
+    start_time = time.time()
     
+    # Use the local model path instead of model_id
+    model = transformers.AutoModelForCausalLM.from_pretrained(
+        model_path,
+        local_files_only=True,  # Forces it to load from the local directory
+        trust_remote_code=True,
+        torch_dtype=bfloat16,
+        device_map='auto'
+    )
+    model.eval()
+    print(model.device)
+    
+    tokenizer = transformers.AutoTokenizer.from_pretrained(model_path)
+
+    generate_text = transformers.pipeline(
+        model=model, tokenizer=tokenizer,
+        return_full_text=False,
+        task="text-generation",
+        temperature=temperature,
+        top_p=top_p,
+        max_new_tokens=max_new_tokens,
+        repetition_penalty=1.1,
+        do_sample=True,
+    )
+
+    res = generate_text(txt2smQwen)
+    output_txt = res[0]["generated_text"]
+    print("LLM OUTPUT")
+    print(output_txt)
+    print(f'time to load in seconds: {round(time.time()-start_time)}')   
+
+    if return_gen is False:
+        return output_txt
+    else:
+        return output_txt, generate_text
+
+def submit_mixtral_paceice(txt2mixtral, max_new_tokens=1024, top_p=0.15, temperature=0.1, 
+                         model_path="/storage/ice-shared/vip-vvk/llm_storage/mistralai/Mixtral-8x7B-Instruct-v0.1", 
+                         return_gen=False):
+    """Submits a prompt to the Mixtral-8x7B-Instruct-v0.1 model on PACE-ICE.
+
+    This function loads the specified Mixtral model from a local path, formats
+    the input prompt into a chat template, and generates a response. Note that
+    the 'max_new_tokens' argument is overridden internally by a random value
+    between 1300 and 1500.
+
+    Args:
+        txt2mixtral (str): The input prompt to send to the model.
+        max_new_tokens (int, optional): The maximum number of new tokens to
+            generate. Defaults to 1024, but is ignored.
+        top_p (float, optional): The nucleus sampling probability. Defaults to 0.15.
+        temperature (float, optional): The sampling temperature for generation.
+            Defaults to 0.1.
+        model_path (str, optional): The local file path to the Mixtral-8x7B
+            model directory. Defaults to a shared path on the PACE-ICE cluster.
+        return_gen (bool, optional): If True, returns a tuple containing the
+            result text and None. Defaults to False.
+
+    Returns:
+        str or tuple[str, None]: The generated text if 'return_gen' is False.
+        Otherwise, a tuple containing the generated text and None.
+    """
+
+    max_new_tokens = np.random.randint(1300, 1500)  # Randomize new tokens (orig. 900, 1300)
+    print("Utilizing Mixtral-8x7b-Instruct-v0.1 (submit_mixtral_paceice)")
+    device = "cuda" if torch.cuda.is_available() else "cpu"  # Use GPU if available
+
+    # Load Model & Tokenizer Locally
+    tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_path,
+        local_files_only=True,
+        torch_dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,  # Use bfloat16 for GPUs
+        device_map="auto"
+    ).eval()  # Set to eval mode
+
+    instructions = [
+        {"role": "user", "content": "Provide code in Python\n" + txt2mixtral}
+    ]
+    
+    # Convert instructions to model format
+    prompt = tokenizer.apply_chat_template(instructions, tokenize=False)
+
+    # Tokenize Input
+    inputs = tokenizer(prompt, return_tensors="pt").to(device)
+
+    # Generate Output
+    with torch.no_grad():
+        output = model.generate(
+            **inputs,
+            max_new_tokens=max_new_tokens,
+            temperature=temperature,
+            top_p=top_p,
+            do_sample=True,
+        )
+
+    # Decode & Return Result
+    result_text = tokenizer.decode(output[0], skip_special_tokens=True)
+    
+    return (result_text, None) if return_gen else result_text
+
+
+def submit_llama3_paceice(txt2llama, max_new_tokens=1024, top_p=0.15, temperature=0.1, 
+                        model_path="/storage/ice-shared/vip-vvk/llm_storage/meta-llama/Llama-3.3-70B-Instruct", 
+                        return_gen=False):
+    """Submits a prompt to the Llama-3.3-70B-Instruct model on PACE-ICE.
+
+    This function loads the specified Llama 3 model from a local path, formats
+    the input prompt into a chat template, and generates a response. Note that
+    the 'max_new_tokens' argument is overridden internally by a random value
+    between 1200 and 1500.
+
+    Args:
+        txt2llama (str): The input prompt to send to the model.
+        max_new_tokens (int, optional): The maximum number of new tokens to
+            generate. Defaults to 1024, but is ignored.
+        top_p (float, optional): The nucleus sampling probability. Defaults to 0.15.
+        temperature (float, optional): The sampling temperature for generation.
+            Defaults to 0.1.
+        model_path (str, optional): The local file path to the Llama-3.3-70B
+            model directory. Defaults to a shared path on the PACE-ICE cluster.
+        return_gen (bool, optional): If True, returns a tuple containing the
+            result text and None. Defaults to False.
+
+    Returns:
+        str or tuple[str, None]: The generated text if 'return_gen' is False.
+        Otherwise, a tuple containing the generated text and None.
+    """
+
+    max_new_tokens = np.random.randint(1200, 1500)  # Randomize new tokens
+    print("Utilizing llama3.3-70B-Instruct")
+    device = "cuda" if torch.cuda.is_available() else "cpu"  # Use GPU if available
+
+    # Load Model & Tokenizer Locally
+    tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_path,
+        local_files_only=True,
+        torch_dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,  # Use bfloat16 for GPUs
+        device_map="auto"
+    ).eval()  # Set to eval mode
+
+    instructions = [
+        {"role": "user", "content": "Provide code in Python\n" + txt2llama}
+    ]
+    
+    # Convert instructions to model format
+    prompt = tokenizer.apply_chat_template(instructions, tokenize=False)
+
+    # Tokenize Input
+    inputs = tokenizer(prompt, return_tensors="pt").to(device)
+
+    # Generate Output
+    with torch.no_grad():
+        output = model.generate(
+            **inputs,
+            max_new_tokens=max_new_tokens,
+            temperature=temperature,
+            top_p=top_p,
+            do_sample=True,
+        )
+
+    # Decode & Return Result
+    result_text = tokenizer.decode(output[0], skip_special_tokens=True)
+    
+    return (result_text, None) if return_gen else result_text
+
 def mutate_prompts(n=5):
     templates = np.random.choice(glob.glob(f'{ROOT_DIR}/templates/FixedPrompts/*/*.txt'), n)
     for i, template in enumerate(templates):
@@ -299,9 +500,13 @@ def mutate_prompts(n=5):
         prompt = "Can you rephrase this text:\n```\n{}\n```".format(prompt_text)
         temp = np.random.uniform(0.01, 0.4)
         if LLM_MODEL == 'mixtral':
-            llm_code_generator = submit_mixtral_hf
+            llm_code_generator = submit_mixtral_paceice
         elif LLM_MODEL == 'llama3':
-            llm_code_generator = submit_llama3_hf
+            llm_code_generator = submit_llama3_paceice
+        elif LLM_MODEL == 'qwen2.5':
+            llm_code_generator = submit_qwen_paceice
+        elif LLM_MODEL == 'gemini':
+            llm_code_generator = submit_gemini_api
         output = llm_code_generator(prompt, temperature=temp).strip()
         if "```" in output:
             output = output.split("```")[0]
