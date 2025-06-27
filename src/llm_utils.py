@@ -33,8 +33,67 @@ def retrieve_base_code(idx):
 
 def clean_code_from_llm(code_from_llm):
     """Cleans the code received from LLM."""
-    return '\n'.join(code_from_llm.strip().split("```")[1].split('\n')[1:]).strip()
+    #return '\n'.join(code_from_llm.strip().split("```")[1].split('\n')[1:]).strip()
+    """
+    Isolates an LLM's response based on the global LLM_MODEL variable,
+    then extracts the first Markdown code block from that response.
 
+    Args:
+        raw_output (str): The full, raw string output from the LLM.
+
+    Returns:
+        str: The cleaned, extracted code block or an error message.
+    """
+    # This function now relies on the global variable LLM_MODEL
+    
+    assistant_response = ""
+    separator = None
+
+    # Step 1: Define and find the separator based on the global LLM_MODEL.
+    if LLM_MODEL == 'llama3':
+        # Define both the official separator and the simple one we've observed.
+        long_separator = '<|start_header_id|>assistant<|end_header_id|>'
+        short_separator = 'assistant\n' # Using \n to be more precise
+        
+        if long_separator in code_from_llm:
+            separator = long_separator
+        elif short_separator in code_from_llm:
+            separator = short_separator
+            
+    elif LLM_MODEL == 'mixtral':
+        separator = '[/INST]'
+    elif LLM_MODEL == 'qwen':
+        separator = '<|im_start|>assistant\n'
+
+    # The rest of the logic remains the same.
+    if separator and separator in code_from_llm:
+        parts = code_from_llm.split(separator, 1)
+        if len(parts) > 1:
+            assistant_response = parts[1]
+        else:
+            assistant_response = code_from_llm
+    else:
+        # This part is the fallback if no separator is found at all
+        assistant_response = code_from_llm
+
+    # Step 2: Extract the code block from ONLY the isolated response.
+    if "```" in assistant_response:
+        try:
+            # We will now look for the *last* code block, which is more likely to be the answer.
+            # split("```") on text with two code blocks will produce 5 parts:
+            # [before_prompt, prompt_code, between, answer_code, after_answer]
+            # The answer code is therefore the second to last element.
+            code_section = assistant_response.split("```")[-2]
+            
+            if '\n' in code_section:
+                final_code = code_section.split('\n', 1)[1].strip()
+            else:
+                final_code = code_section.strip()
+            return final_code
+        except IndexError:
+            return "Error: Could not extract code from the assistant's response."
+    else:
+        return assistant_response.strip()
 
 def generate_augmented_code(txt2llm, augment_idx, apply_quality_control, top_p, temperature, inference_submission=False):
     """Generates augmented code using Mixtral."""
@@ -386,7 +445,7 @@ def submit_mixtral_paceice(txt2mixtral, max_new_tokens=1024, top_p=0.15, tempera
         Otherwise, a tuple containing the generated text and None.
     """
 
-    max_new_tokens = np.random.randint(1300, 1500)  # Randomize new tokens (orig. 900, 1300)
+    max_new_tokens = np.random.randint(6000, 8000)  # Randomize new tokens (orig. 900, 1300)
     print("Utilizing Mixtral-8x7b-Instruct-v0.1 (submit_mixtral_paceice)")
     device = "cuda" if torch.cuda.is_available() else "cpu"  # Use GPU if available
 
@@ -433,7 +492,7 @@ def submit_llama3_paceice(txt2llama, max_new_tokens=1024, top_p=0.15, temperatur
     This function loads the specified Llama 3 model from a local path, formats
     the input prompt into a chat template, and generates a response. Note that
     the 'max_new_tokens' argument is overridden internally by a random value
-    between 1200 and 1500.
+    between 2000 and 2400.
 
     Args:
         txt2llama (str): The input prompt to send to the model.
@@ -452,7 +511,7 @@ def submit_llama3_paceice(txt2llama, max_new_tokens=1024, top_p=0.15, temperatur
         Otherwise, a tuple containing the generated text and None.
     """
 
-    max_new_tokens = np.random.randint(1200, 1500)  # Randomize new tokens
+    max_new_tokens = np.random.randint(6000, 8000)  # Randomize new tokens
     print("Utilizing llama3.3-70B-Instruct")
     device = "cuda" if torch.cuda.is_available() else "cpu"  # Use GPU if available
 

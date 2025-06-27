@@ -1,5 +1,5 @@
 #!/bin/bash
-# Make sure to run this file yourself, it is far too large for github actions to handle
+# Make sure to run this file yourself, it is far too large for github actions to handle, submit using bash or sbatch(if you want a record)
 set -euo pipefail
 
 echo "Creating directories..."

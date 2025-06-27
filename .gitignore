@@ -13,3 +13,6 @@ runs/
 !runs/detect
 finals_sp25/
 sota/ultralytics/ultralytics/
+fail_run/
+run_old.sh
+.venv/

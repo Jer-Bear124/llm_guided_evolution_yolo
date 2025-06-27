@@ -1,3 +1,9 @@
+import sys
+
+print("Python Executable:", sys.executable)
+print("Python Version:", sys.version)
+print("System Path:", sys.path)
+
 import os
 import copy
 import glob
@@ -89,7 +95,10 @@ def generate_template(PROB_EOT, GEN_COUNT, TOP_N_GENES, SOTA_ROOT, SEED_NETWORK,
     if (PROB_EOT > np.random.uniform()) and (GEN_COUNT > 0):
         print("\t‣ EoT")
         top_gene = np.random.choice([x[0] for x in TOP_N_GENES])
-        parts_x = split_file(f"{SOTA_ROOT}/models/network_{top_gene}.yaml") #change between py or yaml depending on what ur network file is
+        if FILE_TYPE == 'yaml':
+            parts_x = split_file(f"{SOTA_ROOT}/models/network_{top_gene}.yaml")
+        elif FILE_TYPE == 'py':
+            parts_x = split_file(f"{SOTA_ROOT}/models/network_{top_gene}.py")
         parts_y = split_file(SEED_NETWORK)
         parts = [(x.strip(), y.strip(), idx) for idx, (x, y) in enumerate(zip(parts_x[1:], parts_y[1:]))]
         random.shuffle(parts)
@@ -154,7 +163,7 @@ def write_bash_script(input_filename_x=f'{SOTA_ROOT}/network_v3.yaml',
             file.write(template_txt)
             
         temp_text = f'{python_file} {input_filename_x} {output_filename} {file_path} --top_p {top_p} --temperature {temperature}'
-        python_runline = f"python {temp_text} --apply_quality_control '{QC_CHECK_BOOL}' --inference_submission {INFERENCE_SUBMISSION}"
+        python_runline = f"uv run {temp_text} --apply_quality_control '{QC_CHECK_BOOL}' --inference_submission {INFERENCE_SUBMISSION}"
         
     elif python_file=='src/llm_crossover.py':
         gene_id_parent2 = fetch_gene(input_filename_y)
@@ -162,7 +171,7 @@ def write_bash_script(input_filename_x=f'{SOTA_ROOT}/network_v3.yaml',
                                                 mutation_type=None, gene_id_parent2=gene_id_parent2)
         
         temp_text = f"{python_file} {input_filename_x} {input_filename_y} {output_filename} --top_p {top_p} --temperature {temperature}"
-        python_runline = f"python {temp_text} --apply_quality_control '{QC_CHECK_BOOL}' --inference_submission {INFERENCE_SUBMISSION}"
+        python_runline = f"uv run {temp_text} --apply_quality_control '{QC_CHECK_BOOL}' --inference_submission {INFERENCE_SUBMISSION}" # Change to use uv run
     else:
         raise ValueError("Invalid python_file argument")
 
@@ -340,7 +349,7 @@ def submit_run(gene_id):
             python_runline = f'python {train_file} -bs 216 -network "models.network_{gene_id}" {tmp}'
         elif FILE_TYPE == 'yaml':
             train_file = './sota/ultralytics/test.py'
-            python_runline = f'python {train_file} -network "network_{gene_id}.yaml"'
+            python_runline = f'uv run {train_file} -network "network_{gene_id}.yaml"' # Change from python to uv run
         bash_script_content = PYTHON_BASH_SCRIPT_TEMPLATE.format(python_runline)
         return bash_script_content
 
@@ -429,7 +438,7 @@ def check4results(gene_id):
         results = results.split(',')
         fitness = [float(r.strip()) for r in results]
         # TODO: get all features later
-        fitness = [fitness[4], fitness[5]] 
+        fitness = [fitness[OBJECTIVE_MAX], fitness[OBJECTIVE_MIN]] # Index 0 maximizes, Index 1 minimizes
         #: fitness[0]: parameters, fitness[1]: inference speed 
         #: For YOLO evaluating on COCO, fitness[2]: Box Precision, fitness[3]: Recall, fitness[4]: MAP50, fitness[5]: MAP50 - 95
         fitness = tuple(fitness)

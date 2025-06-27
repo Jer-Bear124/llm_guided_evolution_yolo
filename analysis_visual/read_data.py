@@ -22,17 +22,28 @@ import matplotlib
 matplotlib.rcParams['pdf.fonttype'] = 42
 matplotlib.rcParams['ps.fonttype'] = 42
 
-map_obj={0: {'name':'parameter', 'weight': 'False' },
-         1: {'name':'inference_speed', 'weight': 'False' },
-         2: {'name':'precision', 'weight': 'True' },
-         3: {'name':'recall', 'weight': 'True' },
-         4: {'name':'mAP50', 'weight': 'True' },
-         5: {'name':'mAP50-90', 'weight': 'True' },
+# Original, restore later
+# map_obj={0: {'name':'parameter', 'weight': 'False' },
+#          1: {'name':'inference_speed', 'weight': 'False' },
+#          2: {'name':'precision', 'weight': 'True' },
+#          3: {'name':'recall', 'weight': 'True' },
+#          4: {'name':'mAP50', 'weight': 'True' },
+#          5: {'name':'mAP50-90', 'weight': 'True' },
+#         #  6: {'name':'gflops', 'weight': 'True' },
+#         #  7: {'name':'fps', 'weight': 'True' },
+#         #  8: {'name':'latency', 'weight': 'False' },
+#         #  9: {'name':'AssA', 'weight': 'True' },
+# }
+
+
+map_obj={0: {'name':'inference_speed', 'weight': 'False' },
+         1: {'name':'mAP50-90', 'weight': 'True' },
         #  6: {'name':'gflops', 'weight': 'True' },
         #  7: {'name':'fps', 'weight': 'True' },
         #  8: {'name':'latency', 'weight': 'False' },
         #  9: {'name':'AssA', 'weight': 'True' },
 }
+
 
 
 markers = [
@@ -113,7 +124,7 @@ pareto_frames_output = os.path.join('.', "pareto_frames")
 os.makedirs(pareto_frames_output, exist_ok=True)
 
 
-def get_stat_from_pkl(folder_name='first_test'):
+def get_stat_from_pkl(folder_name='/home/hice1/yzhang3942/scratch/llm-guided-evolution/pr_run-6-25-25/checkpoints'):  #og: first_test
     """
     Get total number of individuals and valid inds from GE database
     """
@@ -133,7 +144,7 @@ def get_stat_from_pkl(folder_name='first_test'):
     finite_inds = sum(df[df.status == "completed"].fitness.apply(lambda x: np.isfinite(x[0])))
     print("total_inds", len(set(populations_list)), "total_valid_ind", finite_inds)
 
-def collect_scores(folder_name='first_test'):
+def collect_scores(folder_name='/home/hice1/yzhang3942/scratch/llm-guided-evolution/pr_run-6-25-25/checkpoints'): #OG: first_test
     """
     collect ind score from GE database
     """
@@ -304,8 +315,8 @@ markers = [
     "p", "*", "h", "H", "+", "x", "D", "d", "|", "_", ".", ","]
 
 if __name__=='__main__':
-    scores_dict_last = collect_scores(folder_name='first_test')
-    df_sorted4 = plot_4d_pareto_front(scores_dict_last, objectives=[0,1], maximize_ojb=[1], model_name='Llama3.3-70B')
+    scores_dict_last = collect_scores(folder_name='pr_run-6-25-25/checkpoints')
+    df_sorted4 = plot_1d_pareto_front(scores_dict_last, objectives=[1], maximize_ojb=[1], legend='Llama3.3-70B')
     #scores_dict_last
     #maximize_ojb=[2, 3, 4, 5, 6]
 
