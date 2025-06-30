@@ -5,6 +5,7 @@
 #SBATCH --nodes=1                   # Request 1 node
 #SBATCH --mem=0                     # Request all available memory on the node (as per your documentation)
 #SBATCH -c 24                       # Request 48 threads (all 24 cores x 2 CPUs with hyperthreading for Gold 6226)
+# All of the above settings are configured for running on the PACE-ICE HPC
 
 echo "launching LLM-Guided-Evolution"
 hostname

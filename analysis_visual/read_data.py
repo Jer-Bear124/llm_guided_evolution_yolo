@@ -36,8 +36,8 @@ matplotlib.rcParams['ps.fonttype'] = 42
 # }
 
 
-map_obj={0: {'name':'inference_speed', 'weight': 'False' },
-         1: {'name':'mAP50-90', 'weight': 'True' },
+map_obj={0: {'name':'mAP50-90', 'weight': 'True' },
+         1: {'name':'inference_speed', 'weight': 'False' },
         #  6: {'name':'gflops', 'weight': 'True' },
         #  7: {'name':'fps', 'weight': 'True' },
         #  8: {'name':'latency', 'weight': 'False' },
@@ -315,8 +315,8 @@ markers = [
     "p", "*", "h", "H", "+", "x", "D", "d", "|", "_", ".", ","]
 
 if __name__=='__main__':
-    scores_dict_last = collect_scores(folder_name='pr_run-6-25-25/checkpoints')
-    df_sorted4 = plot_1d_pareto_front(scores_dict_last, objectives=[1], maximize_ojb=[1], legend='Llama3.3-70B')
+    scores_dict_last = collect_scores(folder_name='first_test')
+    df_sorted4 = plot_4d_pareto_front(scores_dict_last, objectives=[0, 1], maximize_ojb=[0], model_name='Llama3.3-70B')
     #scores_dict_last
     #maximize_ojb=[2, 3, 4, 5, 6]
 
